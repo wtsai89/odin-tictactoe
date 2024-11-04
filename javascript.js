@@ -56,6 +56,7 @@ function GameController(
     playerTwoName = "Player Two"
 ) {
     const board = Gameboard();
+    let turn = 0;
 
     const players = [
         {
@@ -124,6 +125,11 @@ function GameController(
                 board.printBoard();
                 return 1;
             }
+            turn += 1;
+            if (turn === 9) {
+                console.log("It'a a Tie!");
+                return 2;
+            }
             switchPlayerTurn();
         }
         printNewRound();
@@ -132,6 +138,7 @@ function GameController(
 
     const reset = () => {
         board.resetBoard();
+        turn = 0;
         activePlayer = players[0];
     }
 
@@ -180,6 +187,10 @@ function ScreenController() {
 
         if (result === 1) {
             promptDiv.textContent = `${game.getActivePlayer().name} Wins!`;
+            active = false;
+        }
+        if (result === 2) {
+            promptDiv.textContent = `It's a Tie!`;
             active = false;
         }
 
